@@ -1,0 +1,95 @@
+:root {
+  --paper: #f5f7fa;
+  --sheet: #ffffff;
+  --ink: #16233a;
+  --muted: #5a6678;
+  --rule: #d6dce4;
+  --accent: #23508f;
+  --marker: #ffe27a;
+  --good: #2f7a55;
+  --alert: #a8322d;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 15px/1.55 var(--sans); }
+
+.page { max-width: 1180px; margin: 0 auto; padding: 40px 24px 64px; }
+
+.masthead { max-width: 62ch; margin-bottom: 32px; }
+.masthead h1 { font: 600 34px/1.1 var(--sans); letter-spacing: -0.02em; margin: 0 0 8px; }
+.masthead p { margin: 0; color: var(--muted); font-size: 16px; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; }
+
+/* Inputs */
+.inputs { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 24px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-head { display: flex; justify-content: space-between; align-items: baseline; }
+label { font-weight: 600; font-size: 14px; }
+textarea {
+  width: 100%; min-height: 220px; resize: vertical; padding: 12px 14px;
+  font: 400 14px/1.5 var(--sans); color: var(--ink);
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px;
+}
+textarea:focus, button:focus-visible, .upload:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.count { align-self: flex-end; font-size: 12px; color: var(--muted); }
+
+.upload { font-weight: 500; color: var(--accent); cursor: pointer; }
+.upload input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.upload:hover { text-decoration: underline; }
+
+.primary {
+  padding: 12px 20px; border: 0; border-radius: 6px; cursor: pointer;
+  background: var(--ink); color: #fff; font: 600 15px var(--sans);
+}
+.primary:disabled { background: #9aa4b2; cursor: not-allowed; }
+.secondary {
+  padding: 6px 12px; border: 1px solid var(--rule); border-radius: 6px; cursor: pointer;
+  background: var(--sheet); color: var(--ink); font: 500 13px var(--sans);
+}
+.privacy { margin: 0; font-size: 13px; color: var(--muted); }
+
+/* Results: styled as a reviewed document */
+.results { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 28px 32px; min-height: 420px; }
+.results h2 { font: 600 16px/1.3 var(--sans); margin: 28px 0 8px; }
+.results ul { margin: 0; padding-left: 20px; }
+.results li { margin-bottom: 4px; }
+
+.empty { color: var(--muted); max-width: 48ch; }
+.error { color: var(--alert); font-weight: 500; margin: 0; }
+.warning { margin: 0 0 20px; padding: 12px 14px; border-left: 3px solid var(--alert); background: #fbf1f0; font-size: 14px; }
+
+.score { display: flex; align-items: baseline; gap: 10px; padding-bottom: 16px; border-bottom: 1px solid var(--rule); }
+.score-num { font: 600 48px/1 var(--sans); letter-spacing: -0.03em; }
+.score-label { color: var(--muted); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.keywords { margin: 0; color: var(--muted); }
+
+/* The distinctive element: flagged claims look like a reviewer's highlighter,
+   with the reason written in the margin. */
+.bullets { list-style: none; padding: 0 !important; }
+.bullets li { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 20px; padding: 8px 0; border-bottom: 1px solid #edf0f4; }
+.bullets li:last-child { border-bottom: 0; }
+.bullet-text { grid-column: 1; }
+.flagged .hl {
+  background: linear-gradient(transparent 12%, var(--marker) 12%, var(--marker) 88%, transparent 88%);
+  box-decoration-break: clone; -webkit-box-decoration-break: clone; padding: 0 2px;
+}
+.margin-note { grid-column: 2; font: 400 12.5px/1.4 var(--serif); font-style: italic; color: var(--alert); border-left: 2px solid var(--marker); padding-left: 10px; }
+
+.letter-head { display: flex; justify-content: space-between; align-items: baseline; }
+.letter { white-space: pre-wrap; font: 400 15.5px/1.7 var(--serif); max-width: 68ch; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .inputs { position: static; }
+  .results { padding: 20px; }
+  .two-col { grid-template-columns: 1fr; }
+  .bullets li { grid-template-columns: 1fr; gap: 4px; }
+  .margin-note { grid-column: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
